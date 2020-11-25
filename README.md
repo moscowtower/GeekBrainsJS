@@ -1,1 +1,1 @@
-"# GeekBrainsJS" 
+"JavaScript adventures ft. GeekBrains" 
