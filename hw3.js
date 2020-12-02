@@ -26,9 +26,9 @@ var basket = [];
 
 // заполнение
 basket.push(
-    {'product':'Ведро', 'price':500, 'amount':3}, 
-    {'product':'Лейка', 'price':1000, 'amount':5}, 
-    {'product':'Телогрейка', 'price':1500, 'amount':1},
+    {product:'Ведро', price:500, amount:3}, 
+    {product:'Лейка', price:1000, amount:5}, 
+    {product:'Телогрейка', price:1500, amount:1},
     );
 
 function countBasketPrice(basket){
