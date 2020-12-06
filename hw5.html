@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework #5</title>
+    <style>
+        body {
+            display: block;
+            margin: auto;
+            width: 500px;
+            margin-top: 10px;}
+        
+        #outerBoard {
+            height: 225px;
+            width: 225px;
+            display: flex;
+            flex-wrap: wrap;
+            margin: auto;
+        }
+        
+        #innerBoard {
+            border: solid 1px orchid;
+            width: 200px;
+            height: 200px;
+            display: inline-flex;
+            flex-wrap: wrap;
+            margin: auto;
+        }
+
+        #numContainer {
+            width: 200px;
+            height: 25px;
+            margin-left: 24px;
+        }
+
+        #letContainer {
+            width: 23px;
+            display: inline-block;
+            height: 200px;
+            margin-top: 1px;
+        }
+
+        .krasotischa {
+            width: 25px;
+            height: 25px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ryadochek {
+            display: flex;
+            width: 200px;
+            height: 25px;
+        }
+
+        .kvadratik {
+            width: 25px;
+            height: 25px;
+            display: inline-block;
+            margin: 0px;
+        }        
+
+
+    </style>
+</head>
+<body>
+    <div id='outerBoard'>
+        <div id="numContainer"></div>
+        <div id ='letContainer'></div>
+        <div id='innerBoard'></div>
+    </div>
+    <script>
+        /* 1. Создать функцию, генерирующую шахматную доску. Можно использовать любые html-теги. Доска должна быть верно 
+        разлинована на черные и белые ячейки. 
+        Строки должны нумероваться числами от 1 до 8, столбцы — латинскими буквами A, B, C, D, E, F, G, H. */
+        var doska = document.getElementById('innerBoard');
+        var numContainer = document.getElementById('numContainer');
+        var letContainer = document.getElementById('letContainer');
+        var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+        var numbers = [1, 2, 3, 4, 5, 6, 7, 8];
+        var display = 'block'
+        
+        function generateChessBoard(){
+            // лямбды это подарок богов
+            letters.forEach((x, i) =>{
+                var letter = document.createElement('DIV')
+                var number = document.createElement('DIV')
+                letter.innerText = x
+                letter.className = 'krasotischa'
+                number.innerText = numbers[i]
+                number.className = 'krasotischa'
+                letContainer.appendChild(letter)
+                numContainer.appendChild(number)
+            }) 
+            for (var i = 0; i < letters.length; ++i){
+                var ryadochek = document.createElement('DIV')
+                ryadochek.className = 'ryadochek'
+                ryadochek.style.flexDirection = i % 2 === 0 ? '' : 'row-reverse'; 
+                for (var j = 0; j < letters.length; ++j){
+                    var kvadratik = document.createElement('DIV')
+                    kvadratik.className = 'kvadratik'
+                    kvadratik.style.backgroundColor = j % 2 === 0 ? 'pink' : 'black'
+                    ryadochek.appendChild(kvadratik)
+                }
+            doska.appendChild(ryadochek)
+  }   
+ }
+        
+        
+        generateChessBoard();
+    </script>
+</body>
+</html>
