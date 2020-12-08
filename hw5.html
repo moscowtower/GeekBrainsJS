@@ -1,115 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homework #5</title>
-    <style>
-        body {
-            display: block;
-            margin: auto;
-            width: 500px;
-            margin-top: 10px;}
-        
-        #outerBoard {
-            height: 225px;
-            width: 225px;
-            display: flex;
-            flex-wrap: wrap;
-            margin: auto;
-        }
-        
-        #innerBoard {
-            border: solid 1px orchid;
-            width: 200px;
-            height: 200px;
-            display: inline-flex;
-            flex-wrap: wrap;
-            margin: auto;
-        }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Homework #5</title>
+	<style>
+		body {
+			display: block;
+			margin: auto;
+			width: 500px;
+			margin-top: 10px;}
+		
+		#outerBoard {
+			height: 225px;
+			width: 225px;
+			display: flex;
+			flex-wrap: wrap;
+			margin: auto;
+		}
+		
+		#innerBoard {
+			border: solid 1px orchid;
+			width: 200px;
+			height: 200px;
+			display: inline-flex;
+			flex-wrap: wrap;
+			margin: auto;
+		}
 
-        #numContainer {
-            width: 200px;
-            height: 25px;
-            margin-left: 24px;
-        }
+		#numContainer {
+			width: 200px;
+			height: 25px;
+			margin-left: 24px;
+		}
 
-        #letContainer {
-            width: 23px;
-            display: inline-block;
-            height: 200px;
-            margin-top: 1px;
-        }
+		#letContainer {
+			width: 23px;
+			display: inline-block;
+			height: 200px;
+			margin-top: 1px;
+		}
 
-        .krasotischa {
-            width: 25px;
-            height: 25px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
+		.krasotischa {
+			width: 25px;
+			height: 25px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+		}
 
-        .ryadochek {
-            display: flex;
-            width: 200px;
-            height: 25px;
-        }
+		.ryadochek {
+			display: flex;
+			width: 200px;
+			height: 25px;
+		}
 
-        .kvadratik {
-            width: 25px;
-            height: 25px;
-            display: inline-block;
-            margin: 0px;
-        }        
+		.kvadratik {
+			width: 25px;
+			height: 25px;
+			display: inline-block;
+			margin: 0px;
+		}        
 
+		.catalog {
+			display: inline;
+			width: 200px;
+			height: 200px;
+		}
 
-    </style>
+	</style>
 </head>
 <body>
-    <div id='outerBoard'>
-        <div id="numContainer"></div>
-        <div id ='letContainer'></div>
-        <div id='innerBoard'></div>
-    </div>
-    <script>
-        /* 1. Создать функцию, генерирующую шахматную доску. Можно использовать любые html-теги. Доска должна быть верно 
-        разлинована на черные и белые ячейки. 
-        Строки должны нумероваться числами от 1 до 8, столбцы — латинскими буквами A, B, C, D, E, F, G, H. */
-        var doska = document.getElementById('innerBoard');
-        var numContainer = document.getElementById('numContainer');
-        var letContainer = document.getElementById('letContainer');
-        var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
-        var numbers = [1, 2, 3, 4, 5, 6, 7, 8];
-        var display = 'block'
-        
-        function generateChessBoard(){
-            // лямбды это подарок богов
-            letters.forEach((x, i) =>{
-                var letter = document.createElement('DIV')
-                var number = document.createElement('DIV')
-                letter.innerText = x
-                letter.className = 'krasotischa'
-                number.innerText = numbers[i]
-                number.className = 'krasotischa'
-                letContainer.appendChild(letter)
-                numContainer.appendChild(number)
-            }) 
-            for (var i = 0; i < letters.length; ++i){
-                var ryadochek = document.createElement('DIV')
-                ryadochek.className = 'ryadochek'
-                ryadochek.style.flexDirection = i % 2 === 0 ? '' : 'row-reverse'; 
-                for (var j = 0; j < letters.length; ++j){
-                    var kvadratik = document.createElement('DIV')
-                    kvadratik.className = 'kvadratik'
-                    kvadratik.style.backgroundColor = j % 2 === 0 ? 'pink' : 'black'
-                    ryadochek.appendChild(kvadratik)
-                }
-            doska.appendChild(ryadochek)
+	<div id='outerBoard'>
+		<div id="numContainer"></div>
+		<div id ='letContainer'></div>
+		<div id='innerBoard'></div>
+	</div>
+	<div id='basket'></div>
+	<div id='catalog'>
+	</div>
+	<script>
+		/* 1. Создать функцию, генерирующую шахматную доску. Можно использовать любые html-теги. Доска должна быть верно 
+		разлинована на черные и белые ячейки. 
+		Строки должны нумероваться числами от 1 до 8, столбцы — латинскими буквами A, B, C, D, E, F, G, H. */
+		var doska = document.getElementById('innerBoard');
+		var numContainer = document.getElementById('numContainer');
+		var letContainer = document.getElementById('letContainer');
+		var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+		var numbers = [1, 2, 3, 4, 5, 6, 7, 8];
+		var display = 'block'
+		
+		function generateChessBoard(){
+			// лямбды это подарок богов
+			letters.forEach((x, i) =>{
+				var letter = document.createElement('DIV')
+				var number = document.createElement('DIV')
+				letter.innerText = x
+				letter.className = 'krasotischa'
+				number.innerText = numbers[i]
+				number.className = 'krasotischa'
+				letContainer.appendChild(letter)
+				numContainer.appendChild(number)
+			}) 
+			for (var i = 0; i < letters.length; ++i){
+				var ryadochek = document.createElement('DIV')
+				ryadochek.className = 'ryadochek'
+				ryadochek.style.flexDirection = i % 2 === 0 ? '' : 'row-reverse'; 
+				for (var j = 0; j < letters.length; ++j){
+					var kvadratik = document.createElement('DIV')
+					kvadratik.className = 'kvadratik'
+					kvadratik.style.backgroundColor = j % 2 === 0 ? 'pink' : 'black'
+					ryadochek.appendChild(kvadratik)
+				}
+			doska.appendChild(ryadochek)
   }   
  }
-        
-        
-        generateChessBoard();
-    </script>
+		generateChessBoard();
+
+		/* 
+		2. Сделать генерацию корзины динамической: верстка корзины не должна находиться в HTML-структуре. 
+        Там должен быть только div, в который будет вставляться корзина, сгенерированная на базе JS:
+        Пустая корзина должна выводить строку «Корзина пуста»;
+        Наполненная должна выводить «В корзине: n товаров на сумму m рублей».
+		*/
+
+		var basket = {
+			size: function(){
+				return this.products.length
+			},
+			products: [],
+			add: function(product){
+				this.products.push(product)
+			},
+			countTotal: function(){
+				var total = 0
+				for (var i = 0; i < this.products.length; i++){
+					total += this.products[i].price * this.products[i].amount
+					}
+				return total
+			},
+			info: function(){
+				switch (this.size()){
+					case 0:
+						alert('Корзина пуста');
+						break;
+					default:
+						n = this.size();
+						m = this.countTotal();
+						alert('В корзине: ' + n + ' товаров, на сумму ' + m + ' рублей.')
+					}
+				}	
+			}
+		item1 = new Product('Ведро', 500, 3); 
+		item2 = new Product('Лейка', 1000, 5);
+		item3 = new Product('Телогрейка', 1500, 1);
+		basket.add(item1);
+		basket.add(item2);
+		basket.add(item3);
+		
+		function showBasket(basket){
+			var view = document.getElementById('basket');
+			var img = document.createElement('img');
+			img.src = 'https://i.pinimg.com/originals/70/40/5f/70405f68ba3a416658543134010b9ee5.png';
+			img.width = 250;
+			img.height = 250;
+			view.appendChild(img);
+			basket.info();
+		}
+		showBasket(basket);
+
+		/*
+		 3. * Сделать так, чтобы товары в каталоге выводились при помощи JS: Создать массив товаров (сущность Product);
+        При загрузке страницы на базе данного массива генерировать вывод из него.
+        HTML-код должен содержать только div id=”catalog” без вложенного кода. Весь вид каталога генерируется JS.
+		*/
+		function Product(name, price, amount){
+			this.name = name;
+			this.price = price;
+			this.amount = amount;
+		}
+		productsList = [item1, item2, item3]
+		function showCatalog(products){
+			var view = document.getElementById('catalog');
+			var catalog = document.createElement('p');
+			catalog.textContent = 'Каталог: ';
+			catalog.className = 'catalog';
+			view.appendChild(catalog);
+			var productList = document.createElement('ul');
+			for (var i in products){
+				var item = document.createElement('li');
+				item.textContent = `Наименование: ${products[i].name}; \n Цена: ${products[i].price}; \n Количество: ${products[i].amount}`;
+				productList.appendChild(item)
+			}
+			view.appendChild(productList);
+		}
+		showCatalog(productsList);
+	</script>
 </body>
 </html>
