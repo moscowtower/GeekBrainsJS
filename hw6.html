@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Homework #6</title>
+	<style>
+		body {
+			display: block;
+			margin: auto;
+			width: 500px;
+			margin-top: 10px;}        
+
+		.catalog {
+			text-align: center;
+            vertical-align: middle;
+            line-height: 90px;
+        }
+        .basketImage {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50px;
+            height: 50px;
+        }
+        .item {
+            width: 150px;
+            height: 150px;
+        }
+        .button {
+            padding:5px;
+            border-radius: 25px;
+            background-color: #dcdcdc;
+            border: 1px solid #666;
+            color:#000;
+            text-decoration:none;
+        }
+        .button:active {
+            background-color: blue;
+        }
+
+	</style>
+</head>
+<body>
+    <div id='catalog'></div>
+    <div id='basket'></div>
+	<script>
+        function Product(id, name, price, amount, img, bigimg){
+            this.id = id;
+			this.name = name;
+			this.price = price;
+			this.amount = amount;
+            this.img = 'img/' + img;
+            this.bigimg = bigimg;
+		}
+        
+		var basket = {
+			size: function(){
+				return this.products.length
+			},
+			products: [],
+			add: function(product){
+                if (this.productInBasket(product)){
+                    this.products[product.id].amount += 1;
+                }
+				else {
+                    this.products.push(product)
+                }
+			},
+			countTotal: function(){
+				var total = 0
+				for (var i = 0; i < this.products.length; i++){
+					total += this.products[i].price * this.products[i].amount
+					}
+				return total
+			},
+			info: function(){
+				switch (this.size()){
+					case 0:
+						alert('Корзина пуста');
+						break;
+					default:
+                    var result = 'В корзине ' + this.size() + ' предметов: \n'
+                    for (var i in this.products){
+                        result += this.products[i].name + ', ' +
+                        this.products[i].amount + ' штук, по ' + this.products[i].price + ' за штуку. \n'
+                    }
+                    result += 'ИТОГО: ' + this.countTotal();
+                    alert(result)
+					}
+				},
+            productInBasket: function(product){
+                for (var i in this.products){
+                    if (product.id == this.products[i].id) return true; 
+                }
+            }
+			}
+		
+		function showBasket(basket){
+			var basketView = document.getElementById('basket');
+			var basketImg = document.createElement('img');
+            basketImg.className = 'basketImage';
+			basketImg.src = 'https://i.pinimg.com/originals/70/40/5f/70405f68ba3a416658543134010b9ee5.png';
+            basketImg.addEventListener("click", (event) => basket.info());
+			basketView.appendChild(basketImg);
+		}
+        
+
+		function showCatalog(products){
+			var view = document.getElementById('catalog');
+			var catalog = document.createElement('p');
+			catalog.textContent = 'Каталог';
+			catalog.className = 'catalog';
+			view.appendChild(catalog);
+			var productList = document.createElement('DIV');
+            productList.className = 'gallery';
+			for (var i = 0; i < products.length; i++){
+                var item = document.createElement('img');
+                item.className = 'item';
+                item.id = products[i].id
+                item.src = products[i].img;
+                var button = document.createElement('button');
+                button.className = 'button';
+                button.id = i;
+                button.textContent = 'Купить';
+                button.productId = products[i].id
+                button.addEventListener('click', (event) => basket.add(products[event.target.id])); 
+                //item.addEventListener('click', (event) => popUp());
+                productList.appendChild(item);
+                productList.appendChild(button);
+			}
+			view.appendChild(productList);
+		}
+        
+
+        // //fill me maybe
+        item1 = new Product(0, 'Ведро', 500, 1, 'vedro.jpg',['img/big/vedroBig0.jpg', 'img/vedroBig1.jpg']); 
+		item2 = new Product(1, 'Лейка', 1000, 1, 'leika.jpg', ['img/big/leikaBig0.jpg', 'img/leikaBig1.jpg']);
+		item3 = new Product(2, 'Телогрейка', 1500, 1, 'telogreika.jpg',['img/big/telogreikaBig0.jpg', 'img/telogreikaBig1.jpg']);
+
+        // item1 = new Product(0, 'Ведро', 500, 1, 'vedro.jpg'); 
+		// item2 = new Product(1, 'Лейка', 1000, 1, 'leika.jpg');
+		// item3 = new Product(2, 'Телогрейка', 1500, 1, 'telogreika.jpg');
+
+        var productsList = [item1, item2, item3];
+		basket.add(item1);
+		basket.add(item2);
+		basket.add(item3);
+        //console.log(item2.bigimg[0])
+        //call me maybe
+        showBasket(basket);
+        showCatalog(productsList);
+        
+
+	</script>
+</body>
+</html>
