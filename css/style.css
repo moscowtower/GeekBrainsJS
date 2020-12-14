@@ -1,0 +1,53 @@
+body {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.container {
+    margin: auto;
+    width: 750px;
+    border: solid 1px black;
+}
+
+.catalog {
+    text-align: center;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+.buttonrow{
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    padding:5px;
+    margin: 10px 75px 0 75px;
+    border-radius: 25px;
+    background-color: #dcdcdc;
+    border: 1px solid #666;
+    color:#000;
+    text-decoration:none;
+}
+
+.button:active {
+    background-color: blue;
+}
+
+.basketImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50px;
+    height: 50px;
+}
+.item {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    margin: 0 25px 0 25px;
+}
